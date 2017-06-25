@@ -21,9 +21,10 @@ public class newActivity extends Activity {
         }
     class MyView extends View {
         int width, height;
-        int pac_w=55,pac_h=80;
+        int pac_w=55,pac_h=80,p11=200,p12=100;
         int x=-1,y=-1;
-        Bitmap pacman, home;
+        int right=0,left=0,up=0,down=0;
+        Bitmap pacman, home,p2;
 
         public MyView (Context context){
             super(context);
@@ -34,31 +35,26 @@ public class newActivity extends Activity {
             home = Bitmap.createScaledBitmap(home,width,height,true);
             pacman = BitmapFactory.decodeResource(context.getResources(),R.drawable.pac);
             pacman = Bitmap.createScaledBitmap(pacman,80,80,true);
-            mHandler.sendEmptyMessageDelayed(0,100);
+
+            mHandler.sendEmptyMessageDelayed(0,50);
         }
         public void onDraw(Canvas canvas){
             getPacLocation();
             canvas.drawBitmap(home,0,0,null);
             canvas.drawBitmap(pacman,pac_w,pac_h,null);
 
+
         }
         private void getPacLocation(){
-            if(x!=-1&&y!=-1){
-                if(x>pac_w){
-                    pac_w+=10;
-                }else if(x<pac_w){
-                    pac_w -= 10;
-                }else if(y>pac_h){
-                    pac_h+=10;
-                }else if(y<pac_h){
-                    pac_h -= 10;
-                }
-            }
+            if(up==1) pac_h-=10;
+            else if(down==1) pac_h+=10;
+            else if(right==1) pac_w+=10;
+            else if(left==1) pac_w-=10;
         }
         Handler mHandler = new Handler(){
             public void handleMessage(Message msg){
                 invalidate();
-                mHandler.sendEmptyMessageDelayed(0,100);
+                mHandler.sendEmptyMessageDelayed(0,50);
             }
         };
         public boolean onTouchEvent(MotionEvent event) {
@@ -68,13 +64,63 @@ public class newActivity extends Activity {
                 y = (int) event.getY();
 
                 if(x>pac_w){
-                    pac_w+=10;
+                    if(y>pac_h){
+                        if(x-pac_w>y-pac_h){
+                            up = 0;
+                            down = 0;
+                            right = 1;
+                            left = 0;
+                        }
+                        else{
+                            up = 0;
+                            down = 1;
+                            right = 0;
+                            left = 0;
+                        }
+                    }
+                    else if(y<pac_h){
+                        if(x-pac_w>pac_h-y){
+                            up = 0;
+                            down = 0;
+                            right = 1;
+                            left = 0;
+                        }
+                        else{
+                            up = 1;
+                            down = 0;
+                            right = 0;
+                            left = 0;
+                        }
+                    }
                 }else if(x<pac_w){
-                    pac_w -= 10;
-                }else if(y>pac_h){
-                    pac_h+=10;
-                }else if(y<pac_h){
-                    pac_h -= 10;
+                    if(y>pac_h){
+                        if(pac_w-x>y-pac_h){
+                            up = 0;
+                            down = 0;
+                            right = 0;
+                            left = 1;
+                        }
+                        else {
+                            up = 0;
+                            down = 1;
+                            right = 0;
+                            left = 0;
+                        }
+                    }
+                    else if(y<pac_h){
+                        if(pac_w-x>pac_h-y) {
+                            up = 0;
+                            down = 0;
+                            right = 0;
+                            left = 1;
+                        }
+                        else {
+                            up = 1;
+                            down = 0;
+                            right = 0;
+                            left = 0;
+                        }
+                    }
                 }
             }
 
