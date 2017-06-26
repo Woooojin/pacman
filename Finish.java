@@ -8,13 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-/**
- * Created by woojin on 17. 6. 26.
- */
-
 public class Finish extends AppCompatActivity {
     ImageView imageView01;
-    Bitmap home;
+    Bitmap fin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +19,8 @@ public class Finish extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_fin);
         imageView01 = (ImageView) findViewById(R.id.imageView01);
-        home = BitmapFactory.decodeResource(getResources(),R.drawable.home11);
-        imageView01.setImageBitmap(home);
+        fin = BitmapFactory.decodeResource(getResources(),R.drawable.fin);
+        imageView01.setImageBitmap(fin);
         imageView01.getLayoutParams().width = 1080;
         imageView01.getLayoutParams().height = 1776;
     }

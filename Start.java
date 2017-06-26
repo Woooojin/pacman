@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-public class MainActivity extends AppCompatActivity {
+public class Start extends AppCompatActivity {
     Bitmap home;
     ImageView imageView01;
     @Override
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onButton1clicked(View v) {
         Toast.makeText(getApplicationContext(), "시작 버튼이 눌렸어요",Toast.LENGTH_LONG).show();
-        Intent myIntent = new Intent(getApplicationContext(), newActivity.class);
+        Intent myIntent = new Intent(getApplicationContext(), Game.class);
         startActivity(myIntent);
     }
 }
